@@ -72,7 +72,7 @@ public class Merge {
     }
 
     static void comparar(ArrayList<Integer> acomienzo, ArrayList<Integer> izquierdo, ArrayList<Integer> derecho) {
-        int i = 0, j = 0, k = 0;
+        int i = 0, j = 0;
         int tamañoI = izquierdo.size();
         int tamañoD = derecho.size();
 
