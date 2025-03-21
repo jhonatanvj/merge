@@ -19,6 +19,7 @@ public class Merge {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        int[] rep = {0} ;
 
         System.out.print("Ingrese la cantidad de números aleatorios a generar: ");
         int n = scanner.nextInt();
@@ -41,12 +42,14 @@ public class Merge {
         ArrayList<Integer> seleccionados = new ArrayList<>(listaNumeros.subList(0, n));
 
         System.out.println("Lista original: " + seleccionados.toString().replaceAll("[\\[\\] ]", ""));
-        Merge.separar(seleccionados);
+        Merge.separar(seleccionados,rep);
         System.out.println("Lista ordenada: " + seleccionados.toString().replaceAll("[\\[\\] ]", ""));
+        System.out.println("Numero de iteraciones= "+rep[0]);
         scanner.close();
     }
 
-    static void separar(ArrayList<Integer> acomienzo) {
+    static void separar(ArrayList<Integer> acomienzo,int[] rep) {
+        rep[0]++;
         int tamaño = acomienzo.size();
 
         if (tamaño < 2) {
@@ -64,14 +67,14 @@ public class Merge {
         for (int i = mitad; i < tamaño; i++) {
             derecho.add(acomienzo.get(i));
         }
+        
+        separar(izquierdo,rep);
+        separar(derecho,rep);
 
-        separar(izquierdo);
-        separar(derecho);
-
-        comparar(acomienzo, izquierdo, derecho);
+        comparar(acomienzo, izquierdo, derecho,rep);
     }
 
-    static void comparar(ArrayList<Integer> acomienzo, ArrayList<Integer> izquierdo, ArrayList<Integer> derecho) {
+    static void comparar(ArrayList<Integer> acomienzo, ArrayList<Integer> izquierdo, ArrayList<Integer> derecho,int[]rep) {
         int i = 0, j = 0;
         int tamañoI = izquierdo.size();
         int tamañoD = derecho.size();
@@ -79,6 +82,7 @@ public class Merge {
         acomienzo.clear();
 
         while (i < tamañoI && j < tamañoD) {
+            rep[0]++;
             if (izquierdo.get(i) <= derecho.get(j)) {
                 acomienzo.add(izquierdo.get(i));
                 i++;
@@ -97,6 +101,7 @@ public class Merge {
             acomienzo.add(derecho.get(j));
             j++;
         }
+        
     }
 
 }
